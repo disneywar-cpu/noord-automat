@@ -101,7 +101,6 @@
     width:var(--size);
     cursor:pointer;user-select:none;
   }
-  .ficha:active .fz-disc{transform:scale(.97) rotate(var(--deg,0deg)) !important}
   .ficha:focus-visible{outline:3px solid var(--teal);outline-offset:6px;border-radius:8px}
   .ficha svg{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 30px rgba(18,42,71,.35))}
   .fz-bezel-fill{fill:url(#fzChrome)}
@@ -112,7 +111,7 @@
   .fz-rivet{fill:var(--rojo-maquina)}
   .fz-disc{
     transform-box:fill-box;transform-origin:center;
-    transition:transform .6s cubic-bezier(.2,.9,.25,1.1);
+    transition:transform .85s cubic-bezier(.2,.85,.25,1.08);
   }
   .fz-disc-fill{fill:url(#fzDiscGrad)}
   .fz-handle{fill:url(#fzHandleGrad);stroke:#2a2a2c;stroke-width:1.5}
@@ -125,6 +124,22 @@
     box-shadow:4px 4px 0 var(--rojo-maquina);
   }
   .ticket b{color:var(--stamp)}
+  .ficha-foto{
+    width:132px;border-radius:3px;border:7px solid var(--bone);
+    box-shadow:0 12px 26px rgba(18,42,71,.4);
+    overflow:hidden;background:var(--bone);
+    display:flex;flex-direction:column;
+    opacity:0;transform:translateY(10px) scale(.9) rotate(-5deg);
+    transition:opacity .45s ease, transform .45s cubic-bezier(.2,.9,.25,1.15);
+  }
+  .ficha-foto.show{opacity:1;transform:translateY(0) scale(1) rotate(-2deg)}
+  .fphoto{width:100%;height:150px;background:var(--paper-deep)}
+  .ficha-foto .fcap{
+    height:24px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:.05em;
+    text-transform:uppercase;color:var(--ink-70);text-align:center;padding:0 6px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
   .hint{font-size:.72rem;color:var(--ink-70);font-family:'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
 
   /* ---------- secciones ---------- */
@@ -405,6 +420,7 @@
           </svg>
         </div>
         <div class="ticket" id="ticket">girá la ficha ↻</div>
+        <div class="ficha-foto" id="fichaFoto"><div class="fphoto"></div><span class="fcap"></span></div>
         <span class="hint">tocá la ficha</span>
       </div>
     </div>
@@ -635,14 +651,24 @@ function parseCode(raw){
 
 /* ================= HOME: ficha giratoria ================= */
 (function ficha(){
-  const wrap = $("#ficha"), disc = $("#fzDisc"), ticket = $("#ticket");
-  const pool = Object.values(SERIES).filter(s=>!s.soon).map(s=>s.name);
-  let deg = 0;
+  const wrap = $("#ficha"), disc = $("#fzDisc"), ticket = $("#ticket"), foto = $("#fichaFoto");
+  const pool = Object.values(SERIES).filter(s=>!s.soon);
+  let deg = 0, spinning = false;
   function spin(){
-    deg += 240 + Math.floor(Math.random()*240);
+    if(spinning) return;
+    spinning = true;
+    deg += 360;                      // giro completo, siempre vuelve al mismo lugar de inicio
     disc.style.transform = `rotate(${deg}deg)`;
+    foto.classList.remove("show");
     const pick = pool[Math.floor(Math.random()*pool.length)];
-    setTimeout(()=>{ ticket.innerHTML = `te tocó → <b>${pick}</b>`; }, 420);
+    const nombreFoto = pick.fotos[Math.floor(Math.random()*pick.fotos.length)];
+    setTimeout(()=>{
+      ticket.innerHTML = `te tocó → <b>${pick.name}</b>`;
+      foto.querySelector(".fphoto").className = `fphoto ${pick.cover}`;
+      foto.querySelector(".fcap").textContent = nombreFoto;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>foto.classList.add("show")));
+    }, 480);
+    setTimeout(()=>{ spinning = false; }, 900);
   }
   wrap.addEventListener("click", spin);
   wrap.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();spin();} });

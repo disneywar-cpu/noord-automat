@@ -504,11 +504,11 @@
         <div>
           <span class="eyebrow">¿ya tenés tu sobre?</span>
           <h2 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);margin:12px 0 10px">Desbloqueá tus descargas</h2>
-          <p style="color:var(--ink-70)">Ingresá el código impreso en la tarjeta de tu sobre (por ejemplo <span class="mono">NY-07</span>) y llevate las fotos como fondo de pantalla, en alta calidad, para tu teléfono o escritorio.</p>
+          <p style="color:var(--ink-70)">Ingresá el código impreso en la tarjeta de tu sobre (por ejemplo <span class="mono">NYC0007</span>) y llevate las fotos como fondo de pantalla, en alta calidad, para tu teléfono o escritorio.</p>
         </div>
         <div>
           <form class="code-form" id="home-code-form">
-            <input class="code-input" id="home-code" placeholder="XX-00" maxlength="7" autocomplete="off" aria-label="Código de tu sobre">
+            <input class="code-input" id="home-code" placeholder="NYC0000" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
             <button class="btn" type="submit">Entrar</button>
           </form>
           <div class="code-msg" id="home-code-msg"></div>
@@ -580,7 +580,7 @@
         <h3>Esta serie se abre con tu sobre</h3>
         <p>Ingresá el código impreso en la tarjeta que vino adentro.</p>
         <form class="code-form" id="serie-code-form">
-          <input class="code-input" id="serie-code" placeholder="XX-00" maxlength="7" autocomplete="off" aria-label="Código de tu sobre">
+          <input class="code-input" id="serie-code" placeholder="NYC0000" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
           <button class="btn teal" type="submit">Desbloquear</button>
         </form>
         <div class="code-msg" id="serie-code-msg"></div>
@@ -620,25 +620,41 @@
 /* ================= DATA ================= */
 const SERIES = {
   ny: {
-    prefix:"NY", name:"NUEVA YORK", soon:false, cover:"cov-ny",
+    prefix:"NYC", name:"NUEVA YORK", soon:false, cover:"cov-ny", total:20,
     eyebrow:"serie 01 · calle",
-    desc:"Cinco fotos de una ciudad que no posa: vapor, acero, luz rebotada entre torres. Caminadas de invierno con la cámara colgando.",
-    tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"5 impresiones 11×7 cm", "Edición":"10 sobres de 50 totales", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
-    fotos:["Steam · 5th Ave","Downtown reflejo","Subway, 3 AM","Brooklyn desde el puente","Diner nocturno"]
+    desc:"Cuatro fotos de una ciudad que no posa: vapor, acero, luz rebotada entre torres. Caminadas de invierno con la cámara colgando.",
+    tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"20 sobres numerados", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Puente de Brooklyn", thumb:"images/series/ny/thumb/01.jpg", full:"images/series/ny/full/01.jpg" },
+      { titulo:"Port Authority, andén", thumb:"images/series/ny/thumb/02.jpg", full:"images/series/ny/full/02.jpg" },
+      { titulo:"Vagón, hora pico", thumb:"images/series/ny/thumb/03.jpg", full:"images/series/ny/full/03.jpg" },
+      { titulo:"Puente, de noche", thumb:"images/series/ny/thumb/04.jpg", full:"images/series/ny/full/04.jpg" }
+    ]
   },
   eu: {
-    prefix:"EU", name:"EUROPA", soon:false, cover:"cov-eu",
+    prefix:"EU", name:"EUROPA", soon:false, cover:"cov-eu", total:10,
     eyebrow:"serie 02 · viaje",
     desc:"Cuatro fotos entre ciudades viejas: piedra, bicicletas, cafés con luz baja. La Europa que aparece cuando te perdés del mapa.",
-    tec:{ "Lugar":"Europa", "Fotos":"4 impresiones 11×7 cm", "Edición":"10 sobres de 50 totales", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
-    fotos:["Callejón al amanecer","Café de esquina","Canal en niebla","Tranvía y lluvia"]
+    tec:{ "Lugar":"Europa", "Fotos":"4 impresiones 11×7 cm", "Edición":"10 sobres numerados", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Callejón al amanecer", thumb:null, full:null },
+      { titulo:"Café de esquina", thumb:null, full:null },
+      { titulo:"Canal en niebla", thumb:null, full:null },
+      { titulo:"Tranvía y lluvia", thumb:null, full:null }
+    ]
   },
   sur: {
-    prefix:"SUR", name:"SUR ARGENTINO", soon:false, cover:"cov-sur",
+    prefix:"SUR", name:"SUR ARGENTINO", soon:false, cover:"cov-sur", total:10,
     eyebrow:"serie 03 · paisaje",
     desc:"Cinco fotos del sur: viento, escala, silencio. Lugares donde el paisaje te recuerda tu tamaño real.",
-    tec:{ "Lugar":"Patagonia, Argentina", "Fotos":"5 impresiones 11×7 cm", "Edición":"10 sobres de 50 totales", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
-    fotos:["Ruta y horizonte","Lago espejo","Bosque quemado","Montaña y nube","Estación abandonada"]
+    tec:{ "Lugar":"Patagonia, Argentina", "Fotos":"5 impresiones 11×7 cm", "Edición":"10 sobres numerados", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Ruta y horizonte", thumb:null, full:null },
+      { titulo:"Lago espejo", thumb:null, full:null },
+      { titulo:"Bosque quemado", thumb:null, full:null },
+      { titulo:"Montaña y nube", thumb:null, full:null },
+      { titulo:"Estación abandonada", thumb:null, full:null }
+    ]
   },
   s4: { prefix:"—", name:"SERIE IV", soon:true, cover:"cov-soon", meta:"próximamente" },
   s5: { prefix:"—", name:"SERIE V",  soon:true, cover:"cov-soon", meta:"próximamente" }
@@ -651,12 +667,14 @@ function toast(msg){
   clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove("show"), 2600);
 }
 function parseCode(raw){
-  const m = (raw||"").trim().toUpperCase().match(/^([A-Z]{2,3})[-\s]?(\d{1,2})$/);
+  const m = (raw||"").trim().toUpperCase().replace(/[-\s]/g,"").match(/^([A-Z]{2,4})(\d{4})$/);
   if(!m) return null;
   const num = parseInt(m[2],10);
-  if(num < 1 || num > 10) return null;
   const key = Object.keys(SERIES).find(k => SERIES[k].prefix === m[1]);
-  return key ? {key, code:`${m[1]}-${String(num).padStart(2,"0")}`} : null;
+  if(!key) return null;
+  const total = SERIES[key].total || 10;
+  if(num < 1 || num > total) return null;
+  return {key, code:`${m[1]}${String(num).padStart(4,"0")}`};
 }
 
 /* ================= HOME: series grid ================= */
@@ -691,11 +709,15 @@ function parseCode(raw){
     disc.style.transform = `rotate(${deg}deg)`;
     foto.classList.remove("show");
     const pick = pool[Math.floor(Math.random()*pool.length)];
-    const nombreFoto = pick.fotos[Math.floor(Math.random()*pick.fotos.length)];
+    const fotoPick = pick.fotos[Math.floor(Math.random()*pick.fotos.length)];
     setTimeout(()=>{
       ticket.innerHTML = `te tocó → <b>${pick.name}</b>`;
-      foto.querySelector(".fphoto").className = `fphoto ${pick.cover}`;
-      foto.querySelector(".fcap").textContent = nombreFoto;
+      const fphoto = foto.querySelector(".fphoto");
+      fphoto.className = `fphoto ${pick.cover}`;
+      fphoto.style.backgroundImage = fotoPick.thumb ? `url('${fotoPick.thumb}')` : "";
+      fphoto.style.backgroundSize = "cover";
+      fphoto.style.backgroundPosition = "center";
+      foto.querySelector(".fcap").textContent = fotoPick.titulo;
       requestAnimationFrame(()=>requestAnimationFrame(()=>foto.classList.add("show")));
     }, 480);
     setTimeout(()=>{ spinning = false; }, 900);
@@ -709,7 +731,7 @@ $("#home-code-form").addEventListener("submit", e=>{
   e.preventDefault();
   const r = parseCode($("#home-code").value);
   const msg = $("#home-code-msg");
-  if(!r){ msg.textContent = "Código inválido. Formato: NY-07"; msg.className="code-msg err"; return; }
+  if(!r){ msg.textContent = "Código inválido. Formato: NYC0007"; msg.className="code-msg err"; return; }
   msg.textContent = "Código válido ✓"; msg.className="code-msg ok";
   sessionStorage_set(r.key, r.code);
   location.hash = `#/serie/${r.key}`;
@@ -762,18 +784,28 @@ function unlockSerie(key, code){
   const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
-      <div class="dl-thumb ${covers[key]}">FOTO 0${i+1}</div>
+      <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}>${f.full ? "" : `FOTO 0${i+1}`}</div>
       <div class="dl-body">
-        <h4>${f}</h4>
+        <h4>${f.titulo}</h4>
         <div class="dl-btns">
-          <button onclick="demoDl('${f}','móvil')">📱 móvil</button>
-          <button onclick="demoDl('${f}','escritorio')">🖥️ escritorio</button>
+          <button onclick="demoDl('${f.titulo}','móvil','${f.full||""}')">📱 móvil</button>
+          <button onclick="demoDl('${f.titulo}','escritorio','${f.full||""}')">🖥️ escritorio</button>
         </div>
       </div>
     </div>`).join("");
 }
-function demoDl(name, tipo){
-  toast(`Demo: acá se descarga «${name}» (${tipo}) en alta calidad.`);
+function demoDl(name, tipo, url){
+  if(url){
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name.replace(/\s+/g,"_") + ".jpg";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    toast(`Descargando «${name}» (${tipo})…`);
+  } else {
+    toast(`Demo: acá se descarga «${name}» (${tipo}) en alta calidad.`);
+  }
 }
 function showHome(){
   currentSerie = null;

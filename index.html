@@ -544,7 +544,9 @@
       <h2 class="display" style="font-size:clamp(1.8rem,4.5vw,2.8rem);margin:14px 0 12px">Talleres de fotografía</h2>
       <p style="max-width:58ch">Talleres virtuales para aprender a mirar antes de disparar: luz, composición, calle y viaje. Dejá tu mail y te avisamos cuando abran las inscripciones — sin spam, una sola vez.</p>
       <form class="mail-form" id="mail-form">
-        <input class="mail-input" id="mail-input" type="email" required placeholder="tu@email.com" aria-label="Tu email">
+        <input class="mail-input" id="mail-nombre" type="text" required placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name">
+        <input class="mail-input" id="mail-telefono" type="tel" placeholder="Tu WhatsApp (opcional)" aria-label="Tu WhatsApp" autocomplete="tel">
+        <input class="mail-input" id="mail-input" type="email" required placeholder="tu@email.com" aria-label="Tu email" autocomplete="email">
         <button class="btn teal" type="submit">Avisame</button>
       </form>
       <div class="code-msg ok" id="mail-msg" style="margin-top:14px"></div>
@@ -780,11 +782,22 @@ function showHome(){
   $("#view-home").classList.add("active");
 }
 
-/* ================= mail form ================= */
+/* ================= mail form → Google Apps Script (Sheet + mail en Drive) ================= */
+const LEADS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwqsBb3Vk6x83iT8KtGGeybp2QaALcG9ZfkejIbYdLSnhhgyzQBlowh4iXz-KNvxT63vg/exec";
+
 $("#mail-form").addEventListener("submit", e=>{
   e.preventDefault();
+  const body = new URLSearchParams();
+  body.set("nombre", $("#mail-nombre").value.trim());
+  body.set("telefono", $("#mail-telefono").value.trim());
+  body.set("email", $("#mail-input").value.trim());
+  fetch(LEADS_ENDPOINT, {
+    method:"POST", mode:"no-cors",
+    headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body
+  });
   $("#mail-msg").textContent = "Listo — Te escribimos cuando abran las inscripciones.";
-  $("#mail-input").value = "";
+  $("#mail-form").reset();
 });
 
 /* ================= router ================= */

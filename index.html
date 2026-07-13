@@ -325,6 +325,29 @@
   @media (prefers-reduced-motion: reduce){
     *{transition:none!important;animation:none!important;scroll-behavior:auto}
   }
+
+  /* ---------- botón flotante de WhatsApp ---------- */
+  .wa-float{
+    position:fixed;right:22px;bottom:22px;z-index:80;
+    display:flex;align-items:center;gap:10px;
+    background:var(--teal);color:var(--night);
+    padding:15px;border-radius:999px;text-decoration:none;
+    box-shadow:0 10px 26px rgba(18,42,71,.4);
+    transition:transform .15s ease;
+  }
+  .wa-float:hover{transform:translateY(-3px)}
+  .wa-float svg{width:24px;height:24px;flex:none;display:block}
+  .wa-float span{
+    font-family:'IBM Plex Mono',monospace;font-size:.76rem;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;
+    max-width:0;overflow:hidden;white-space:nowrap;opacity:0;
+    transition:max-width .25s ease, opacity .2s ease;
+  }
+  .wa-float:hover span{max-width:140px;opacity:1;margin-right:2px}
+  @media(max-width:640px){
+    .wa-float{right:16px;bottom:16px}
+    .wa-float span{display:none}
+  }
 </style>
 </head>
 <body>
@@ -576,13 +599,18 @@
           <h3>Llevate esta foto a tu pared</h3>
           <p>Impresión de laboratorio en papel de archivo, edición limitada, firmada y enmarcada. Tres tamaños disponibles. Coordinamos por WhatsApp.</p>
         </div>
-        <a class="btn stamp" id="s-wa" href="https://wa.me/5492230000000" target="_blank" rel="noopener">Pedir mi print</a>
+        <a class="btn stamp" id="s-wa" href="https://wa.me/5491166416437?text=Hola%2C%20quiero%20pedir%20un%20print%20de%20una%20foto%20del%20Automat" target="_blank" rel="noopener">Pedir mi print</a>
       </div>
 
       <a class="back-link" href="#/">← volver al Automat</a>
     </div>
   </section>
 </main>
+
+<a class="wa-float" href="https://wa.me/5491166416437?text=Hola%2C%20vi%20el%20Automat%20y%20quiero%20consultar" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.26.86 5.82 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.14.82.84-3.06-.2-.32a8.18 8.18 0 0 1-1.26-4.38c0-4.55 3.71-8.22 8.27-8.22zm-4.55 4.7c-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02s.87 2.35.99 2.51c.12.16 1.7 2.72 4.2 3.71 2.07.83 2.49.66 2.94.62.45-.04 1.46-.6 1.66-1.18.2-.58.2-1.07.14-1.18-.06-.1-.22-.16-.46-.28-.25-.12-1.46-.72-1.68-.8-.23-.08-.4-.12-.56.12-.16.25-.65.8-.79.96-.15.16-.29.18-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.24-.41.08-.16.04-.31-.02-.43-.06-.12-.56-1.36-.78-1.86-.2-.48-.4-.42-.56-.42z"/></svg>
+  <span>Escribinos</span>
+</a>
 
 <div id="toast" role="status"></div>
 

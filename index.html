@@ -80,6 +80,11 @@
   .hero h1{font-size:clamp(3.2rem,8.5vw,6.2rem);margin:14px 0 6px}
   .hero h1 .thin{font-family:'Archivo',sans-serif;font-weight:300;font-stretch:75%;display:block;font-size:.42em;letter-spacing:.32em;margin-bottom:6px}
   .hero p.lede{font-size:1.12rem;max-width:46ch;color:var(--ink-70);margin:18px 0 30px}
+  .hero-manifesto{
+    margin-top:34px;padding-top:28px;border-top:1.5px solid var(--ink-12);
+    max-width:42ch;font-size:.95rem;line-height:1.75;color:var(--ink-70);
+    white-space:pre-line;
+  }
   .btn-row{display:flex;gap:14px;flex-wrap:wrap}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
@@ -133,6 +138,8 @@
     transition:opacity .45s ease, transform .45s cubic-bezier(.2,.9,.25,1.15);
   }
   .ficha-foto.show{opacity:1;transform:translateY(0) scale(1) rotate(-2deg)}
+  .ficha-foto.landscape{width:200px}
+  .ficha-foto.landscape .fphoto{height:113px}
   .fphoto{width:100%;height:150px;background:var(--paper-deep)}
   .ficha-foto .fcap{
     height:24px;flex:none;display:flex;align-items:center;justify-content:center;
@@ -176,6 +183,8 @@
   .serie-card:hover{transform:translateY(-4px);box-shadow:6px 8px 0 var(--ink)}
   .serie-card.soon{opacity:.55;pointer-events:none}
   .serie-cover{aspect-ratio:4/3;position:relative;display:flex;align-items:flex-end;padding:16px}
+  .serie-blur{position:absolute;inset:-10px;background-size:cover;background-position:center;filter:blur(9px)}
+  .serie-cover .tag{position:relative;z-index:1}
   .serie-cover .tag{
     font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.18em;
     text-transform:uppercase;background:var(--paper);border:1.5px solid var(--ink);
@@ -412,11 +421,16 @@
       <div>
         <span class="eyebrow">noord.club presenta</span>
         <h1 class="display"><span class="thin">una máquina expendedora de</span>FOTOGRAFÍAS</h1>
-        <p class="lede">Poné una ficha, girá la rueda y te llevás un sobre con una mini serie fotográfica: 4–5 fotos impresas, numeradas y firmadas. Cada sobre es una edición de 50. Ninguno se repite jamás.</p>
+        <p class="lede">Poné una ficha, girá la rueda y te llevás un sobre con una mini serie fotográfica: 4 fotos impresas, numeradas y firmadas. Cada sobre es una edición limitada. Llevate una pieza de arte única.</p>
         <div class="btn-row">
           <a class="btn stamp" href="#/#series">Ver las series</a>
-          <a class="btn ghost" href="#/#como">Cómo funciona</a>
         </div>
+        <p class="hero-manifesto">Vivimos mirando todo a través de una pantalla.
+Pero una foto en una pantalla es apenas una imagen.
+Recién cuando la tenés en papel, en la mano, se vuelve una fotografía, obra de arte.
+Algo que ya es tuyo, que podés colgar.
+Cada foto está numerada y firmada, es única y original.
+Puede tocarte cualquiera.</p>
       </div>
       <div class="ficha-zone">
         <div class="ficha" id="ficha" role="button" tabindex="0" aria-label="Girá la ficha para descubrir una serie">
@@ -482,9 +496,9 @@
             </g>
           </svg>
         </div>
-        <div class="ticket" id="ticket">girá la ficha ↻</div>
+        <div class="ticket" id="ticket">girá la rueda ↻</div>
         <div class="ficha-foto" id="fichaFoto"><div class="fphoto"></div><span class="fcap"></span></div>
-        <span class="hint">tocá la ficha</span>
+        <span class="hint">volvé a girar la rueda</span>
       </div>
     </div>
   </section>
@@ -512,7 +526,7 @@
           <span class="icon">✉</span>
           <span class="n">PASO 03</span>
           <h3>Abrí el sobre</h3>
-          <p>Adentro: las fotos firmadas, la ficha técnica de la serie y un código único para desbloquear los fondos de pantalla acá.</p>
+          <p>Adentro: las obras auténticas firmadas y numeradas, la ficha técnica y un código único para poder ver las fotos en HD y descargar fondos de pantalla.</p>
         </div>
       </div>
     </div>
@@ -533,7 +547,7 @@
       <div class="gold-coin">🪙</div>
       <div style="flex:1;min-width:260px">
         <h3>Hay un sobre dorado.</h3>
-        <p>Uno solo de los 50 sobres esconde algo más grande: una copia de exhibición firmada. Si te toca, nos escribís y la retirás. Suerte.</p>
+        <p>Dentro de los sobres se esconde algo más grande: una copia de exhibición firmada. Si te toca, ya es tuya, nos escribís y la retirás. Suerte.</p>
       </div>
     </div>
   </div>
@@ -543,12 +557,12 @@
       <div class="unlock-box">
         <div>
           <span class="eyebrow">¿ya tenés tu sobre?</span>
-          <h2 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);margin:12px 0 10px">Desbloqueá tus descargas</h2>
-          <p style="color:var(--ink-70)">Ingresá el código impreso en la tarjeta de tu sobre (por ejemplo <span class="mono">NYC0007</span>) y llevate las fotos como fondo de pantalla, en alta calidad, para tu teléfono o escritorio.</p>
+          <h2 class="display" style="font-size:clamp(1.6rem,4vw,2.4rem);margin:12px 0 10px">Abrí tus sobres.</h2>
+          <p style="color:var(--ink-70)">Ingresá el código impreso en la tarjeta (por ejemplo <span class="mono">JKE3287</span>), vas a encontrar tus fotos en alta calidad y te podés llevar un wallpaper.</p>
         </div>
         <div>
           <form class="code-form" id="home-code-form">
-            <input class="code-input" id="home-code" placeholder="NYC0000" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
+            <input class="code-input" id="home-code" placeholder="••••••••" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
             <button class="btn" type="submit">Entrar</button>
           </form>
           <div class="code-msg" id="home-code-msg"></div>
@@ -582,7 +596,7 @@
     <div class="wrap">
       <span class="eyebrow">detrás de estas fotos hay un método</span>
       <h2 class="display" style="font-size:clamp(1.8rem,4.5vw,2.8rem);margin:14px 0 12px">Talleres de fotografía</h2>
-      <p style="max-width:58ch">Talleres virtuales para aprender a mirar antes de disparar: luz, composición, calle y viaje. Dejá tu mail y te avisamos cuando abran las inscripciones — sin spam, una sola vez.</p>
+      <p style="max-width:58ch">Talleres virtuales y presenciales para aprender a mirar antes de disparar: luz, composición, técnica fotográfica, con cámara réflex o celular. Dejá tu mail y te avisamos cuando abran las inscripciones — sin spam.</p>
       <form class="mail-form" id="mail-form">
         <input class="mail-input" id="mail-nombre" type="text" required placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name">
         <input class="mail-input" id="mail-telefono" type="tel" placeholder="Tu WhatsApp (opcional)" aria-label="Tu WhatsApp" autocomplete="tel">
@@ -621,7 +635,7 @@
         <h3>Esta serie se abre con tu sobre</h3>
         <p>Ingresá el código impreso en la tarjeta que vino adentro.</p>
         <form class="code-form" id="serie-code-form">
-          <input class="code-input" id="serie-code" placeholder="NYC0000" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
+          <input class="code-input" id="serie-code" placeholder="••••••••" maxlength="8" autocomplete="off" aria-label="Código de tu sobre">
           <button class="btn teal" type="submit">Desbloquear</button>
         </form>
         <div class="code-msg" id="serie-code-msg"></div>
@@ -672,13 +686,13 @@
 /* ================= DATA ================= */
 const SERIES = {
   ny: {
-    prefix:"NYC", name:"NUEVA YORK", soon:false, cover:"cov-ny", total:20,
+    prefix:"NYC", name:"NUEVA YORK", soon:false, cover:"cov-ny", total:20, preview:"images/series/ny/thumb/03.jpg",
     eyebrow:"Sobre NY - Serie 01",
     desc:"Cuatro fotos de Nueva York.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
     tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
     fotos:[
       { titulo:"Shadows on the bridge.", thumb:"images/series/ny/thumb/01.jpg", full:"images/series/ny/full/01.jpg", wallpaper:"images/series/ny/wallpaper/01.jpg" },
-      { titulo:"Port Authority.", thumb:"images/series/ny/thumb/02.jpg", full:"images/series/ny/full/02.jpg", wallpaper:null },
+      { titulo:"Port Authority.", thumb:"images/series/ny/thumb/02.jpg", full:"images/series/ny/full/02.jpg", wallpaper:null, orientation:"landscape" },
       { titulo:"Time traveler.", thumb:"images/series/ny/thumb/03.jpg", full:"images/series/ny/full/03.jpg", wallpaper:null },
       { titulo:"Under the bridge.", thumb:"images/series/ny/thumb/04.jpg", full:"images/series/ny/full/04.jpg", wallpaper:null }
     ]
@@ -740,10 +754,13 @@ function parseCode(raw){
       </div>`;
     return `
       <a class="serie-card" href="#/serie/${k}">
-        <div class="serie-cover ${s.cover}"><span class="tag">${s.fotos.length} fotos</span></div>
+        <div class="serie-cover ${s.cover}">
+          ${s.preview ? `<div class="serie-blur" style="background-image:url('${s.preview}')"></div>` : ""}
+          <span class="tag">${s.fotos.length} fotos</span>
+        </div>
         <div class="serie-body">
           <h3>${s.name}</h3>
-          <div class="meta">10 SOBRES · 11×7 CM · FIRMADAS</div>
+          <div class="meta">EDICIÓN LIMITADA · 11×7 CM · FIRMADAS</div>
         </div>
       </a>`;
   }).join("");
@@ -769,6 +786,7 @@ function parseCode(raw){
       fphoto.style.backgroundImage = fotoPick.thumb ? `url('${fotoPick.thumb}')` : "";
       fphoto.style.backgroundSize = "cover";
       fphoto.style.backgroundPosition = "center";
+      foto.classList.toggle("landscape", fotoPick.orientation === "landscape");
       foto.querySelector(".fcap").textContent = fotoPick.titulo;
       requestAnimationFrame(()=>requestAnimationFrame(()=>foto.classList.add("show")));
     }, 480);
@@ -783,7 +801,7 @@ $("#home-code-form").addEventListener("submit", e=>{
   e.preventDefault();
   const r = parseCode($("#home-code").value);
   const msg = $("#home-code-msg");
-  if(!r){ msg.textContent = "Código inválido. Formato: NYC0007"; msg.className="code-msg err"; return; }
+  if(!r){ msg.textContent = "Código inválido. Revisá la tarjeta de tu sobre."; msg.className="code-msg err"; return; }
   msg.textContent = "Código válido ✓"; msg.className="code-msg ok";
   sessionStorage_set(r.key, r.code);
   location.hash = `#/serie/${r.key}`;
@@ -794,7 +812,7 @@ $("#serie-code-form").addEventListener("submit", e=>{
   const key = currentSerie;
   const r = parseCode($("#serie-code").value);
   const msg = $("#serie-code-msg");
-  if(!r){ msg.textContent = "Código inválido. Formato: "+SERIES[key].prefix+"-07"; msg.className="code-msg err"; return; }
+  if(!r){ msg.textContent = "Código inválido. Revisá la tarjeta de tu sobre."; msg.className="code-msg err"; return; }
   if(r.key !== key){ msg.textContent = "Ese código pertenece a la serie "+SERIES[r.key].name+"."; msg.className="code-msg err"; return; }
   sessionStorage_set(key, r.code);
   unlockSerie(key, r.code);

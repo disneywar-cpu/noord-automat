@@ -140,7 +140,6 @@
   }
   .ficha-foto.revealed{display:flex}
   .ficha-foto.show{opacity:1;transform:translateY(0) translateX(var(--shift)) scale(1) rotate(var(--tilt))}
-  .ficha-foto.landscape .fphoto{height:96px}
   @media(max-width:640px){
     #fichaFoto{order:0}
     #ticket{order:1}
@@ -803,7 +802,7 @@ function parseCode(raw){
       const fphoto = foto.querySelector(".fphoto");
       fphoto.className = `fphoto ${pick.cover}`;
       fphoto.style.backgroundImage = fotoPick.thumb ? `url('${fotoPick.thumb}')` : "";
-      fphoto.style.backgroundSize = "cover";
+      fphoto.style.backgroundSize = fotoPick.orientation === "landscape" ? "contain" : "cover";
       fphoto.style.backgroundPosition = "center";
       foto.classList.toggle("landscape", fotoPick.orientation === "landscape");
       foto.classList.add("revealed");

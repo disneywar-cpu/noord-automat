@@ -130,6 +130,7 @@
   }
   .ticket b{color:var(--stamp)}
   .ficha-foto{
+    --tilt:-2deg; --shift:0px;
     width:132px;border-radius:3px;border:7px solid var(--bone);
     box-shadow:0 12px 26px rgba(18,42,71,.4);
     overflow:hidden;background:var(--bone);
@@ -138,9 +139,8 @@
     transition:opacity .45s ease, transform .45s cubic-bezier(.2,.9,.25,1.15);
   }
   .ficha-foto.revealed{display:flex}
-  .ficha-foto.show{opacity:1;transform:translateY(0) scale(1) rotate(-2deg)}
-  .ficha-foto.landscape{width:200px}
-  .ficha-foto.landscape .fphoto{height:113px}
+  .ficha-foto.show{opacity:1;transform:translateY(0) translateX(var(--shift)) scale(1) rotate(var(--tilt))}
+  .ficha-foto.landscape .fphoto{height:96px}
   @media(max-width:640px){
     #fichaFoto{order:0}
     #ticket{order:1}
@@ -204,6 +204,7 @@
   .cov-ny{background:linear-gradient(160deg,#16324F 0%,#3FA79B 130%)}
   .cov-eu{background:linear-gradient(160deg,#3E2A3D 0%,#C4402C 140%)}
   .cov-sur{background:linear-gradient(160deg,#0F2A38 0%,#7FB6C9 140%)}
+  .cov-paris{background:linear-gradient(160deg,#3A2A1E 0%,#C9A227 140%)}
   .cov-soon{background:repeating-linear-gradient(45deg,var(--paper-deep) 0 12px,var(--paper) 12px 24px)}
 
   /* banda del sobre dorado */
@@ -729,7 +730,18 @@ const SERIES = {
       { titulo:"Estación abandonada", thumb:null, full:null, wallpaper:null }
     ]
   },
-  s4: { prefix:"—", name:"SERIE IV", soon:true, cover:"cov-soon", meta:"próximamente" },
+  paris: {
+    prefix:"PAR", name:"PARÍS", soon:false, cover:"cov-paris", total:20, preview:"images/series/paris/thumb/01.jpg",
+    eyebrow:"Sobre París - Serie 01",
+    desc:"Cuatro fotos de París.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
+    tec:{ "Lugar":"París, Francia.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Cowboy.", thumb:"images/series/paris/thumb/01.jpg", full:"images/series/paris/full/01.jpg", wallpaper:null },
+      { titulo:"Enjoy.", thumb:"images/series/paris/thumb/02.jpg", full:"images/series/paris/full/02.jpg", wallpaper:null },
+      { titulo:"Orange.", thumb:"images/series/paris/thumb/03.jpg", full:"images/series/paris/full/03.jpg", wallpaper:null },
+      { titulo:"Versalles.", thumb:"images/series/paris/thumb/04.jpg", full:"images/series/paris/full/04.jpg", wallpaper:"images/series/paris/wallpaper/04.jpg", wallpaperTipo:"pc", orientation:"landscape" }
+    ]
+  },
   s5: { prefix:"—", name:"SERIE V",  soon:true, cover:"cov-soon", meta:"próximamente" }
 };
 
@@ -796,6 +808,9 @@ function parseCode(raw){
       foto.classList.toggle("landscape", fotoPick.orientation === "landscape");
       foto.classList.add("revealed");
       foto.querySelector(".fcap").textContent = fotoPick.titulo;
+      // pequeño azar en la caída de la foto, como si cayera físicamente distinto cada vez
+      foto.style.setProperty("--tilt", (Math.random()*10 - 5).toFixed(1) + "deg");
+      foto.style.setProperty("--shift", (Math.random()*10 - 5).toFixed(1) + "px");
       requestAnimationFrame(()=>requestAnimationFrame(()=>foto.classList.add("show")));
     }, 480);
     setTimeout(()=>{ spinning = false; }, 900);
@@ -859,14 +874,14 @@ function unlockSerie(key, code){
   $("#s-locked").style.display = "none";
   $("#s-unlocked").style.display = "";
   $("#s-owner").textContent = "SOBRE " + code;
-  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur"};
+  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
       <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}
            onclick="openLightbox('${key}', ${i})">${f.full ? "" : `FOTO 0${i+1}`}</div>
       <div class="dl-body">
         <h4>${f.titulo}</h4>
-        ${f.wallpaper ? `<div class="dl-btns"><button onclick="demoDl('${f.titulo}','wallpaper','${f.wallpaper}')">🖼️ Wallpaper disponible</button></div>` : ""}
+        ${f.wallpaper ? `<div class="dl-btns"><button onclick="demoDl('${f.titulo}','wallpaper','${f.wallpaper}')">${f.wallpaperTipo === "pc" ? "🖥️ Wallpaper para PC disponible" : "🖼️ Wallpaper disponible"}</button></div>` : ""}
       </div>
     </div>`).join("");
 }

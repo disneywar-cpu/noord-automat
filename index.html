@@ -718,19 +718,6 @@ const SERIES = {
       { titulo:"Callejón.", thumb:"images/series/eu/thumb/04.jpg", full:"images/series/eu/full/04.jpg", wallpaper:null }
     ]
   },
-  sur: {
-    prefix:"SUR", name:"SUR ARGENTINO", soon:false, cover:"cov-sur", total:10,
-    eyebrow:"serie 03 · paisaje",
-    desc:"Cinco fotos del sur: viento, escala, silencio. Lugares donde el paisaje te recuerda tu tamaño real.",
-    tec:{ "Lugar":"Patagonia, Argentina", "Fotos":"5 impresiones 11×7 cm", "Edición":"10 sobres numerados", "Firma":"Numerada y firmada a mano", "Extra":"Código de descarga único" },
-    fotos:[
-      { titulo:"Ruta y horizonte", thumb:null, full:null, wallpaper:null },
-      { titulo:"Lago espejo", thumb:null, full:null, wallpaper:null },
-      { titulo:"Bosque quemado", thumb:null, full:null, wallpaper:null },
-      { titulo:"Montaña y nube", thumb:null, full:null, wallpaper:null },
-      { titulo:"Estación abandonada", thumb:null, full:null, wallpaper:null }
-    ]
-  },
   paris: {
     prefix:"PAR", name:"PARÍS", soon:false, cover:"cov-paris", total:20, preview:"images/series/paris/thumb/01.jpg",
     eyebrow:"Sobre París - Serie 01",
@@ -766,7 +753,8 @@ const SERIES = {
       { titulo:"Corner #3.", thumb:"images/series/amsterdam/thumb/03.jpg", full:"images/series/amsterdam/full/03.jpg", wallpaper:"images/series/amsterdam/wallpaper/03.jpg" },
       { titulo:"Corner #4.", thumb:"images/series/amsterdam/thumb/04.jpg", full:"images/series/amsterdam/full/04.jpg", wallpaper:null }
     ]
-  }
+  },
+  nueva: { prefix:"—", name:"NUEVA SERIE", soon:true, cover:"cov-soon", meta:"próximamente" }
 };
 
 /* ================= HELPERS ================= */
@@ -899,7 +887,7 @@ function unlockSerie(key, code){
   $("#s-locked").style.display = "none";
   $("#s-unlocked").style.display = "";
   $("#s-owner").textContent = "SOBRE " + code;
-  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris", nycolors:"cov-nycolors", amsterdam:"cov-amsterdam"};
+  const covers = {ny:"cov-ny", eu:"cov-eu", paris:"cov-paris", nycolors:"cov-nycolors", amsterdam:"cov-amsterdam"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
       <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}

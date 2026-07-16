@@ -146,7 +146,7 @@
     #ficha{order:2}
     .hint{order:3}
   }
-  .fphoto{width:100%;height:150px;background:var(--paper-deep)}
+  .fphoto{width:100%;height:150px;background:var(--paper-deep);background-repeat:no-repeat}
   .ficha-foto .fcap{
     min-height:24px;flex:none;display:flex;align-items:center;justify-content:center;
     font-family:'IBM Plex Mono',monospace;font-size:.54rem;letter-spacing:.04em;
@@ -804,6 +804,7 @@ function parseCode(raw){
       fphoto.style.backgroundImage = fotoPick.thumb ? `url('${fotoPick.thumb}')` : "";
       fphoto.style.backgroundSize = fotoPick.orientation === "landscape" ? "contain" : "cover";
       fphoto.style.backgroundPosition = "center";
+      fphoto.style.backgroundRepeat = "no-repeat";
       foto.classList.toggle("landscape", fotoPick.orientation === "landscape");
       foto.classList.add("revealed");
       foto.querySelector(".fcap").textContent = fotoPick.titulo;

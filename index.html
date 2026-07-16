@@ -205,6 +205,7 @@
   .cov-sur{background:linear-gradient(160deg,#0F2A38 0%,#7FB6C9 140%)}
   .cov-paris{background:linear-gradient(160deg,#3A2A1E 0%,#C9A227 140%)}
   .cov-nycolors{background:linear-gradient(160deg,#7A1E4F 0%,#E8622C 140%)}
+  .cov-amsterdam{background:linear-gradient(160deg,#1B4B43 0%,#D98A3D 140%)}
   .cov-soon{background:repeating-linear-gradient(45deg,var(--paper-deep) 0 12px,var(--paper) 12px 24px)}
 
   /* banda del sobre dorado */
@@ -743,8 +744,8 @@ const SERIES = {
     ]
   },
   nycolors: {
-    prefix:"NYX", name:"NUEVA YORK COLOR", soon:false, cover:"cov-nycolors", total:20, preview:"images/series/nycolors/thumb/03.jpg",
-    eyebrow:"Sobre NY Color - Serie 01",
+    prefix:"NYX", name:"NEW YORK COLORS", soon:false, cover:"cov-nycolors", total:20, preview:"images/series/nycolors/thumb/03.jpg",
+    eyebrow:"Sobre New York Colors - Serie 01",
     desc:"Cuatro fotos de Nueva York, en color.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
     tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
     fotos:[
@@ -752,6 +753,19 @@ const SERIES = {
       { titulo:"Manhattan.", thumb:"images/series/nycolors/thumb/02.jpg", full:"images/series/nycolors/full/02.jpg", wallpaper:null, orientation:"landscape" },
       { titulo:"McCurri.", thumb:"images/series/nycolors/thumb/03.jpg", full:"images/series/nycolors/full/03.jpg", wallpaper:null },
       { titulo:"Taxi Driver.", thumb:"images/series/nycolors/thumb/04.jpg", full:"images/series/nycolors/full/04.jpg", wallpaper:"images/series/nycolors/wallpaper/04.jpg" }
+    ]
+  },
+  amsterdam: {
+    prefix:"AMS", name:"AMSTERDAM", soon:false, cover:"cov-amsterdam", total:20, preview:"images/series/amsterdam/thumb/02.jpg",
+    eyebrow:"Sobre Amsterdam - Serie 01",
+    desc:"Cinco fotos de Amsterdam sacadas con la cámara del teléfono móvil.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
+    tec:{ "Lugar":"Ámsterdam, Países Bajos.", "Fotos":"5 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Corner #1.", thumb:"images/series/amsterdam/thumb/01.jpg", full:"images/series/amsterdam/full/01.jpg", wallpaper:null },
+      { titulo:"Corner #2.", thumb:"images/series/amsterdam/thumb/02.jpg", full:"images/series/amsterdam/full/02.jpg", wallpaper:null },
+      { titulo:"Corner #3.", thumb:"images/series/amsterdam/thumb/03.jpg", full:"images/series/amsterdam/full/03.jpg", wallpaper:null },
+      { titulo:"Corner #4.", thumb:"images/series/amsterdam/thumb/04.jpg", full:"images/series/amsterdam/full/04.jpg", wallpaper:null },
+      { titulo:"Corner #5.", thumb:"images/series/amsterdam/thumb/05.jpg", full:"images/series/amsterdam/full/05.jpg", wallpaper:null }
     ]
   }
 };
@@ -886,7 +900,7 @@ function unlockSerie(key, code){
   $("#s-locked").style.display = "none";
   $("#s-unlocked").style.display = "";
   $("#s-owner").textContent = "SOBRE " + code;
-  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris", nycolors:"cov-nycolors"};
+  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris", nycolors:"cov-nycolors", amsterdam:"cov-amsterdam"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
       <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}

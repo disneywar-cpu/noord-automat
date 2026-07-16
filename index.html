@@ -204,6 +204,7 @@
   .cov-eu{background:linear-gradient(160deg,#3E2A3D 0%,#C4402C 140%)}
   .cov-sur{background:linear-gradient(160deg,#0F2A38 0%,#7FB6C9 140%)}
   .cov-paris{background:linear-gradient(160deg,#3A2A1E 0%,#C9A227 140%)}
+  .cov-nycolors{background:linear-gradient(160deg,#7A1E4F 0%,#E8622C 140%)}
   .cov-soon{background:repeating-linear-gradient(45deg,var(--paper-deep) 0 12px,var(--paper) 12px 24px)}
 
   /* banda del sobre dorado */
@@ -741,7 +742,18 @@ const SERIES = {
       { titulo:"Versalles.", thumb:"images/series/paris/thumb/04.jpg", full:"images/series/paris/full/04.jpg", wallpaper:"images/series/paris/wallpaper/04.jpg", wallpaperTipo:"pc", orientation:"landscape" }
     ]
   },
-  s5: { prefix:"—", name:"SERIE V",  soon:true, cover:"cov-soon", meta:"próximamente" }
+  nycolors: {
+    prefix:"NYX", name:"NUEVA YORK COLOR", soon:false, cover:"cov-nycolors", total:20, preview:"images/series/nycolors/thumb/03.jpg",
+    eyebrow:"Sobre NY Color - Serie 01",
+    desc:"Cuatro fotos de Nueva York, en color.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
+    tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Cross Line.", thumb:"images/series/nycolors/thumb/01.jpg", full:"images/series/nycolors/full/01.jpg", wallpaper:"images/series/nycolors/wallpaper/01.jpg" },
+      { titulo:"Manhattan.", thumb:"images/series/nycolors/thumb/02.jpg", full:"images/series/nycolors/full/02.jpg", wallpaper:null, orientation:"landscape" },
+      { titulo:"McCurri.", thumb:"images/series/nycolors/thumb/03.jpg", full:"images/series/nycolors/full/03.jpg", wallpaper:null },
+      { titulo:"Taxi Driver.", thumb:"images/series/nycolors/thumb/04.jpg", full:"images/series/nycolors/full/04.jpg", wallpaper:"images/series/nycolors/wallpaper/04.jpg" }
+    ]
+  }
 };
 
 /* ================= HELPERS ================= */
@@ -874,7 +886,7 @@ function unlockSerie(key, code){
   $("#s-locked").style.display = "none";
   $("#s-unlocked").style.display = "";
   $("#s-owner").textContent = "SOBRE " + code;
-  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris"};
+  const covers = {ny:"cov-ny", eu:"cov-eu", sur:"cov-sur", paris:"cov-paris", nycolors:"cov-nycolors"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
       <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}

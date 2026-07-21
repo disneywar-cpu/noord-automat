@@ -206,6 +206,7 @@
   .cov-paris{background:linear-gradient(160deg,#3A2A1E 0%,#C9A227 140%)}
   .cov-nycolors{background:linear-gradient(160deg,#7A1E4F 0%,#E8622C 140%)}
   .cov-amsterdam{background:linear-gradient(160deg,#1B4B43 0%,#D98A3D 140%)}
+  .cov-nysmoke{background:linear-gradient(160deg,#1A1A1E 0%,#6B7280 140%)}
   .cov-soon{background:repeating-linear-gradient(45deg,var(--paper-deep) 0 12px,var(--paper) 12px 24px)}
 
   /* banda del sobre dorado */
@@ -695,12 +696,12 @@ Puede tocarte cualquiera.</p>
 /* ================= DATA ================= */
 const SERIES = {
   ny: {
-    prefix:"NYC", name:"NUEVA YORK", soon:false, cover:"cov-ny", total:20, preview:"images/series/ny/thumb/03.jpg",
+    prefix:"NYC", name:"NEW YORK B&W", soon:false, cover:"cov-ny", total:20, preview:"images/series/ny/thumb/03.jpg",
     eyebrow:"Sobre NY - Serie 01",
     desc:"Cuatro fotos de Nueva York.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
     tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
     fotos:[
-      { titulo:"Shadows on the bridge.", thumb:"images/series/ny/thumb/01.jpg", full:"images/series/ny/full/01.jpg", wallpaper:"images/series/ny/wallpaper/01.jpg" },
+      { titulo:"Shadows.", thumb:"images/series/ny/thumb/01.jpg", full:"images/series/ny/full/01.jpg", wallpaper:"images/series/ny/wallpaper/01.jpg" },
       { titulo:"Port Authority.", thumb:"images/series/ny/thumb/02.jpg", full:"images/series/ny/full/02.jpg", wallpaper:null, orientation:"landscape" },
       { titulo:"Time traveler.", thumb:"images/series/ny/thumb/03.jpg", full:"images/series/ny/full/03.jpg", wallpaper:null },
       { titulo:"Under the bridge.", thumb:"images/series/ny/thumb/04.jpg", full:"images/series/ny/full/04.jpg", wallpaper:null }
@@ -752,6 +753,18 @@ const SERIES = {
       { titulo:"Corner #2.", thumb:"images/series/amsterdam/thumb/02.jpg", full:"images/series/amsterdam/full/02.jpg", wallpaper:null },
       { titulo:"Corner #3.", thumb:"images/series/amsterdam/thumb/03.jpg", full:"images/series/amsterdam/full/03.jpg", wallpaper:"images/series/amsterdam/wallpaper/03.jpg" },
       { titulo:"Corner #4.", thumb:"images/series/amsterdam/thumb/04.jpg", full:"images/series/amsterdam/full/04.jpg", wallpaper:null }
+    ]
+  },
+  nysmoke: {
+    prefix:"NYS", name:"NEW YORK SMOKE", soon:false, cover:"cov-nysmoke", total:20, preview:"images/series/nysmoke/thumb/02.jpg",
+    eyebrow:"Sobre New York Smoke - Serie 01",
+    desc:"Cuatro fotos de Nueva York, entre el humo.\nUn recorte de una serie mucho más grande.\nEn un formato pequeño, económico y coleccionable.\nPara volver a sentir lo que es una fotografía sobre papel, fuera de la pantalla.\nEsto alguna vez fue luz, ahora está en tus manos.",
+    tec:{ "Lugar":"Nueva York, EE.UU.", "Fotos":"4 impresiones 11×7 cm", "Edición":"Sobres numerados y firmados a mano", "Autor":"Ariel Fernandh", "Extra":"Código de descarga único" },
+    fotos:[
+      { titulo:"Smoke #1.", thumb:"images/series/nysmoke/thumb/01.jpg", full:"images/series/nysmoke/full/01.jpg", wallpaper:"images/series/nysmoke/wallpaper/01.jpg" },
+      { titulo:"Smoke #2.", thumb:"images/series/nysmoke/thumb/02.jpg", full:"images/series/nysmoke/full/02.jpg", wallpaper:null },
+      { titulo:"Smoke #3.", thumb:"images/series/nysmoke/thumb/03.jpg", full:"images/series/nysmoke/full/03.jpg", wallpaper:null },
+      { titulo:"Smoke #4.", thumb:"images/series/nysmoke/thumb/04.jpg", full:"images/series/nysmoke/full/04.jpg", wallpaper:null }
     ]
   },
   nueva: { prefix:"—", name:"NUEVA SERIE", soon:true, cover:"cov-soon", meta:"próximamente" }
@@ -887,7 +900,7 @@ function unlockSerie(key, code){
   $("#s-locked").style.display = "none";
   $("#s-unlocked").style.display = "";
   $("#s-owner").textContent = "SOBRE " + code;
-  const covers = {ny:"cov-ny", eu:"cov-eu", paris:"cov-paris", nycolors:"cov-nycolors", amsterdam:"cov-amsterdam"};
+  const covers = {ny:"cov-ny", eu:"cov-eu", paris:"cov-paris", nycolors:"cov-nycolors", amsterdam:"cov-amsterdam", nysmoke:"cov-nysmoke"};
   $("#s-dl").innerHTML = s.fotos.map((f,i)=>`
     <div class="dl-card">
       <div class="dl-thumb ${covers[key]}" ${f.full ? `style="background-image:url('${f.full}');background-size:cover;background-position:center"` : ""}

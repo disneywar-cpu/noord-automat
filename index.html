@@ -370,6 +370,42 @@
   .print-cta h3{font-family:'Archivo Black',sans-serif;font-size:1.5rem;color:var(--bone);margin-bottom:8px}
   .print-cta p{max-width:52ch}
   .back-link{display:inline-block;margin:30px 0 0;font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);text-decoration:none}
+  .back-link.light{color:var(--ink)}
+
+  /* ---------- vista MANIFIESTO ---------- */
+  .manifiesto-hero{padding:56px 0 90px}
+  .manifiesto-grid{display:grid;grid-template-columns:.6fr 1.4fr;gap:60px;align-items:start}
+  @media(max-width:860px){.manifiesto-grid{grid-template-columns:1fr;gap:38px}}
+  .artist-card{position:sticky;top:84px}
+  @media(max-width:860px){.artist-card{position:static;max-width:280px}}
+  .artist-photo{
+    border:7px solid var(--bone);border-radius:3px;
+    box-shadow:0 16px 30px rgba(18,42,71,.32);overflow:hidden;background:var(--paper-deep);
+  }
+  .artist-photo img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+  .artist-caption{
+    margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70);text-align:center;
+  }
+  .artist-name{font-family:'Archivo Black',sans-serif;font-size:1.3rem;margin-top:26px}
+  .artist-role{font-size:.9rem;color:var(--ink-70);margin-top:4px}
+  .artist-contact{margin-top:22px}
+  .manifiesto-text h1{
+    font-family:'Archivo Black',sans-serif;font-size:clamp(2rem,5vw,3.4rem);
+    line-height:1.04;margin-bottom:30px;
+  }
+  .manifiesto-text p{
+    text-align:justify;-webkit-hyphens:auto;hyphens:auto;
+    color:var(--ink-70);font-size:1.02rem;line-height:1.78;margin-bottom:22px;
+  }
+  .manifiesto-text p.lead{color:var(--ink);font-size:1.12rem}
+  .manifiesto-close{
+    margin-top:46px;padding-top:34px;border-top:1.5px solid var(--ink-12);
+  }
+  .manifiesto-close p{
+    font-family:'Archivo Black',sans-serif;font-size:clamp(1.25rem,3vw,1.7rem);
+    line-height:1.35;color:var(--ink);text-align:left;margin-bottom:4px;
+  }
 
   /* toast */
   #toast{
@@ -419,6 +455,7 @@
       <a href="#/#como">Cómo funciona</a>
       <a href="#/#sobre">Tu sobre</a>
       <a href="#/#talleres">Talleres</a>
+      <a href="#/manifiesto">El artista</a>
     </nav>
   </div>
 </header>
@@ -441,6 +478,7 @@ Cuando la tenés en papel, en las manos, se vuelve una fotografía, una obra de 
 Algo que ya es tuyo, algo tangible, que podés compartir, que podés colgar.
 Cada obra está numerada y firmada, es única y original.
 Puede tocarte cualquiera.</p>
+        <a class="back-link light" href="#/manifiesto" style="margin-top:14px">Leer el manifiesto completo →</a>
       </div>
       <div class="ficha-zone">
         <div class="ficha" id="ficha" role="button" tabindex="0" aria-label="Girá la ficha para descubrir una serie">
@@ -620,7 +658,7 @@ Puede tocarte cualquiera.</p>
   <footer>
     <div class="wrap inner">
       <span>NOORD AUTOMAT — MDQ</span>
-      <span><a href="https://instagram.com/noord.club" target="_blank" rel="noopener">@noord.club</a> · <a href="https://noord.ar">noord.ar</a></span>
+      <span><a href="#/manifiesto">El artista</a> · <a href="https://instagram.com/noord.club" target="_blank" rel="noopener">@noord.club</a> · <a href="https://noord.ar">noord.ar</a></span>
       <span>EDICIÓN 01 · 2026</span>
     </div>
     <div class="wrap" style="margin-top:10px;opacity:.6;font-size:.68rem">© 2026 Ariel Fernandh / NOORD. Todas las fotografías son de su autoría — todos los derechos reservados.</div>
@@ -672,6 +710,88 @@ Puede tocarte cualquiera.</p>
       </div>
 
       <a class="back-link" href="#/">← volver al Automat</a>
+    </div>
+  </section>
+</main>
+
+<!-- ================= MANIFIESTO ================= -->
+<main id="view-manifiesto" class="view">
+  <section class="manifiesto-hero">
+    <div class="wrap">
+      <a class="back-link light" href="#/" style="margin:0 0 26px;display:block">← volver al Automat</a>
+      <div class="manifiesto-grid">
+        <div class="artist-card">
+          <div class="artist-photo">
+            <img src="images/artista/ariel-fernandh.jpg" alt="Retrato de Ariel Fernandh">
+          </div>
+          <p class="artist-caption">Ariel Fernandh · Mar del Plata, 2026</p>
+          <p class="artist-name">Ariel Fernandh</p>
+          <p class="artist-role">Artista visual y fotógrafo</p>
+          <div class="artist-contact">
+            <a class="btn stamp" href="mailto:info@noord.ar">Escribime a info@noord.ar</a>
+          </div>
+        </div>
+        <div class="manifiesto-text">
+          <span class="eyebrow">manifiesto</span>
+          <h1>Esto una vez fue luz</h1>
+
+          <p class="lead">Soy Ariel Fernandh, artista visual y fotógrafo.</p>
+
+          <p>Llegué a la fotografía después de atravesar distintas disciplinas: el teatro, la danza, el cine, el diseño y muchas otras áreas que despertaron mi curiosidad. Algunas quedaron en el camino y otras siguen acompañándome. No las veo como desvíos, sino como diferentes formas de aprender a observar.</p>
+
+          <p>Siempre aparece algo nuevo que quiero estudiar, comprender o experimentar. Esa curiosidad terminó convirtiéndose en una parte fundamental de mi manera de mirar el mundo.</p>
+
+          <p>Desde chico me apasiona viajar. Con el tiempo, la fotografía se convirtió en una razón para salir, explorar lugares desconocidos y acercarme a experiencias que quería conservar. La cámara empezó siendo una herramienta de registro, pero terminó modificando mi forma de estar presente.</p>
+
+          <p>No creo que la fotografía pueda detener el tiempo. El tiempo continúa, inevitablemente. Una fotografía puede, en cambio, dejar una huella de su paso. No conserva lo vivido de manera intacta: conserva una forma de haberlo mirado.</p>
+
+          <p>Cuando intento hacer una fotografía, me obligo a observar con más atención. A descubrir relaciones, gestos, luces y detalles que podrían pasar inadvertidos. Fotografiar se vuelve entonces un ejercicio de sensibilidad.</p>
+
+          <p>Creo que, cuanto más sensibles somos, más herramientas tenemos para percibir y disfrutar la vida.</p>
+
+          <p>Me interesa la belleza que no se anuncia.</p>
+
+          <p>No hablo de una belleza hegemónica, perfecta o estandarizada. Hablo de una belleza que suele permanecer escondida a simple vista: discreta, cambiante, imperfecta. Una belleza que no necesita llamar la atención, pero que espera ser encontrada.</p>
+
+          <p>Para mí, el trabajo del artista consiste en aprender a reconocerla, darle una forma y compartirla. El arte aparece en ese movimiento: observar, elegir, transformar y ofrecerle algo a otra persona con la esperanza de que despierte en ella una emoción, una pregunta o una nueva manera de mirar.</p>
+
+          <p class="lead">Este proyecto nace de una incomodidad.</p>
+
+          <p>Durante años, muchas de mis fotografías permanecieron guardadas en computadoras, discos rígidos y tarjetas de memoria. Existían, pero no tenían peso, textura ni presencia física. Podían verse en una pantalla durante algunos segundos y desaparecer inmediatamente entre miles de imágenes.</p>
+
+          <p>Quise devolverles cuerpo, escala y materia. Convertirlas en objetos que pudieran tocarse, conservarse, regalarse o acompañar la vida cotidiana de otra persona.</p>
+
+          <p>Cada fotografía de este proyecto fue seleccionada, impresa y preparada como parte de ese proceso. No busca ser solamente una reproducción decorativa. Es el resultado de un recorrido, una mirada y una decisión artística.</p>
+
+          <p class="lead">La máquina expendedora forma parte de la obra.</p>
+
+          <p>Me interesa el contraste entre un mecanismo, casi impersonal, y la experiencia de recibir algo que fue creado y preparado por una persona. Alguien se acerca, elige, introduce una moneda y recibe un sobre. Dentro encuentra una fotografía cuyo destino, hasta ese momento, era desconocido.</p>
+
+          <p>Ese pequeño intercambio crea una conexión entre dos personas que posiblemente nunca se encuentren.</p>
+
+          <p>También me gustaría recuperar la idea de que una obra original no tiene por qué ser inaccesible. El arte puede formar parte de una casa, de una habitación o de la vida diaria sin convertirse necesariamente en un objeto distante o reservado para unos pocos.</p>
+
+          <p>En una época en la que las imágenes se producen, consumen y descartan a una velocidad enorme, volver a la fotografía física es también una forma de resistencia. No una resistencia nostálgica, sino una invitación a detener la mirada.</p>
+
+          <p>Mientras la inteligencia artificial puede generar realidades que nunca existieron, la fotografía vuelve a recordarme el valor de haber estado allí: mirar, elegir un encuadre, aceptar el azar, cometer errores y trabajar con aquello que el mundo ofrece.</p>
+
+          <p>No se trata de enfrentar una tecnología con otra. Se trata de poner en valor la presencia, la intención y el trabajo humano detrás de una imagen.</p>
+
+          <p>Este proyecto busca que las fotografías vuelvan a circular fuera de las pantallas. Que lleguen a manos desconocidas, habiten nuevos espacios y despierten algo en quienes las reciben.</p>
+
+          <p>Tal vez una imagen termine enmarcada en una pared. Tal vez sea regalada, guardada dentro de un libro o encontrada nuevamente dentro de algunos años. Su recorrido ya no dependerá solamente de mí.</p>
+
+          <p>Esa incertidumbre también forma parte de la obra.</p>
+
+          <div class="manifiesto-close">
+            <p>Esto una vez fue luz.</p>
+            <p>Después fue mirada, tiempo y materia.</p>
+            <p>Ahora está en tus manos.</p>
+          </div>
+
+          <a class="btn stamp" href="mailto:info@noord.ar" style="margin-top:36px">Escribime a info@noord.ar</a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -880,6 +1000,7 @@ function showSerie(key){
   currentSerie = key;
   document.body.classList.add("night-mode");
   $("#view-home").classList.remove("active");
+  $("#view-manifiesto").classList.remove("active");
   $("#view-serie").classList.add("active");
   $("#s-eyebrow").textContent = s.eyebrow;
   $("#s-title").textContent = s.name;
@@ -969,7 +1090,16 @@ function showHome(){
   currentSerie = null;
   document.body.classList.remove("night-mode");
   $("#view-serie").classList.remove("active");
+  $("#view-manifiesto").classList.remove("active");
   $("#view-home").classList.add("active");
+}
+function showManifiesto(){
+  currentSerie = null;
+  document.body.classList.remove("night-mode");
+  $("#view-home").classList.remove("active");
+  $("#view-serie").classList.remove("active");
+  $("#view-manifiesto").classList.add("active");
+  window.scrollTo({top:0});
 }
 
 /* ================= mail form → Google Apps Script (Sheet + mail en Drive) ================= */
@@ -995,6 +1125,7 @@ function route(){
   const h = location.hash || "#/";
   const m = h.match(/^#\/serie\/(\w+)/);
   if(m){ showSerie(m[1]); }
+  else if(h.startsWith("#/manifiesto")){ showManifiesto(); }
   else{
     showHome();
     const anchor = h.match(/^#\/#(\w+)/);

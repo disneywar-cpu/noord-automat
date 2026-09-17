@@ -1,23 +1,46 @@
-const { getStore } = require("@netlify/blobs");
+function parseFlatHash(arr) {
+  const out = {};
+  for (let i = 0; i < arr.length; i += 2) {
+    out[arr[i]] = parseInt(arr[i + 1], 10) || 0;
+  }
+  return out;
+}
 
 exports.handler = async () => {
-  const store = getStore("sobres");
-  const { blobs } = await store.list({ prefix: "event/" });
-
-  const events = await Promise.all(
-    blobs.map((b) => store.get(b.key, { type: "json" }))
-  );
-
-  const valid = events.filter(Boolean);
-  const total = valid.length;
-
-  const porDia = {};
-  const porSerie = {};
-  for (const ev of valid) {
-    const day = (ev.ts || "").slice(0, 10);
-    if (day) porDia[day] = (porDia[day] || 0) + 1;
-    porSerie[ev.serie] = (porSerie[ev.serie] || 0) + 1;
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) {
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Storage not configured" }),
+    };
   }
+
+  const commands = [
+    ["GET", "sobres:total"],
+    ["HGETALL", "sobres:por_dia"],
+    ["HGETALL", "sobres:por_serie"],
+  ];
+
+  const res = await fetch(`${url}/pipeline`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify(commands),
+  });
+
+  if (!res.ok) {
+    return {
+      statusCode: 502,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Storage error" }),
+    };
+  }
+
+  const results = await res.json();
+  const total = parseInt(results[0]?.result || "0", 10) || 0;
+  const porDia = parseFlatHash(results[1]?.result || []);
+  const porSerie = parseFlatHash(results[2]?.result || []);
 
   return {
     statusCode: 200,

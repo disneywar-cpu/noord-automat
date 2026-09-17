@@ -6,9 +6,13 @@ function parseFlatHash(arr) {
   return out;
 }
 
+function cleanEnv(v) {
+  return typeof v === "string" ? v.trim().replace(/^["']|["']$/g, "") : v;
+}
+
 exports.handler = async () => {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = cleanEnv(process.env.UPSTASH_REDIS_REST_URL);
+  const token = cleanEnv(process.env.UPSTASH_REDIS_REST_TOKEN);
   if (!url || !token) {
     return {
       statusCode: 500,

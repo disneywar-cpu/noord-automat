@@ -1041,12 +1041,23 @@ function parseCode(raw){
 })();
 
 /* ================= CODE forms ================= */
+function logSobreAbierto(serieKey){
+  try{
+    fetch("/api/log-open", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ serie: serieKey })
+    }).catch(()=>{});
+  }catch(e){}
+}
+
 $("#home-code-form").addEventListener("submit", e=>{
   e.preventDefault();
   const r = parseCode($("#home-code").value);
   const msg = $("#home-code-msg");
   if(!r){ msg.textContent = "Código inválido. Revisá la tarjeta de tu sobre."; msg.className="code-msg err"; return; }
   msg.textContent = "Código válido ✓"; msg.className="code-msg ok";
+  logSobreAbierto(r.key);
   sessionStorage_set(r.key, r.code);
   location.hash = `#/serie/${r.key}`;
 });
@@ -1059,6 +1070,7 @@ $("#serie-code-form").addEventListener("submit", e=>{
   if(!r){ msg.textContent = "Código inválido. Revisá la tarjeta de tu sobre."; msg.className="code-msg err"; return; }
   if(r.key !== key){ msg.textContent = "Ese código pertenece a la serie "+SERIES[r.key].name+"."; msg.className="code-msg err"; return; }
   sessionStorage_set(key, r.code);
+  logSobreAbierto(key);
   unlockSerie(key, r.code);
 });
 

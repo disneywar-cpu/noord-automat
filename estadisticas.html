@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadísticas — NOORD AUTOMAT</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#EAE0CC; --paper-deep:#E0D4BA; --ink:#122A47; --ink-70:rgba(18,42,71,.7);
+    --ink-30:rgba(18,42,71,.3); --ink-12:rgba(18,42,71,.12); --teal:#3FA79B;
+    --stamp:#C4402C; --bone:#F2EBDB; --maxw:1000px; --r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;line-height:1.5;padding:32px 20px 80px}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .wrap{max-width:var(--maxw);margin:0 auto}
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+  h1{font-family:'Archivo Black',sans-serif;font-size:clamp(1.5rem,4vw,2.2rem)}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-70)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-bottom:34px}
+  .card{border:1.5px solid var(--ink);border-radius:var(--r);padding:22px;background:var(--bone)}
+  .card .n{font-family:'Archivo Black',sans-serif;font-size:2.4rem;color:var(--stamp)}
+  .card .l{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-70);margin-top:4px}
+  .panel{border:1.5px solid var(--ink);border-radius:var(--r);padding:24px;background:var(--bone);margin-bottom:24px}
+  .panel h2{font-size:1.05rem;margin-bottom:16px}
+  .chart-wrap{position:relative;height:280px}
+  .state{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--ink-70);padding:20px 0}
+  .refresh{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;
+    border:1.5px solid var(--ink);border-radius:999px;padding:8px 16px;background:transparent;color:var(--ink);
+    cursor:pointer}
+  .refresh:hover{background:var(--ink);color:var(--bone)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="eyebrow">panel interno · no listado</div>
+        <h1>Sobres abiertos</h1>
+      </div>
+      <button class="refresh" id="btn-refresh">↻ actualizar</button>
+    </header>
+
+    <div id="state" class="state">Cargando datos…</div>
+
+    <div id="content" style="display:none">
+      <div class="cards">
+        <div class="card">
+          <div class="n" id="stat-total">0</div>
+          <div class="l">Sobres abiertos (total)</div>
+        </div>
+        <div class="card">
+          <div class="n" id="stat-hoy">0</div>
+          <div class="l">Hoy</div>
+        </div>
+        <div class="card">
+          <div class="n" id="stat-serie-top">—</div>
+          <div class="l">Serie más pedida</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Aperturas por día (últimos 30 días)</h2>
+        <div class="chart-wrap"><canvas id="chart-dia"></canvas></div>
+      </div>
+
+      <div class="panel">
+        <h2>Aperturas por serie</h2>
+        <div class="chart-wrap"><canvas id="chart-serie"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const NOMBRES_SERIE = {
+  ny: "New York B&W",
+  eu: "Barcelona",
+  paris: "París",
+  nycolors: "New York Colors",
+  amsterdam: "Amsterdam",
+  nysmoke: "New York Smoke",
+  mdq: "Mar del Plata",
+  desconocida: "Sin identificar"
+};
+function nombreSerie(key){ return NOMBRES_SERIE[key] || key.toUpperCase(); }
+
+let chartDia = null, chartSerie = null;
+
+async function cargar(){
+  const state = document.getElementById("state");
+  const content = document.getElementById("content");
+  state.textContent = "Cargando datos…";
+  content.style.display = "none";
+  try{
+    const res = await fetch("/api/stats", { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    render(data);
+    state.textContent = "";
+    content.style.display = "";
+  }catch(err){
+    state.textContent = "No se pudieron cargar los datos (" + err.message + "). Probá actualizar de nuevo en unos segundos.";
+  }
+}
+
+function render(data){
+  const porDia = data.porDia || {};
+  const porSerie = data.porSerie || {};
+  const total = data.total || 0;
+
+  document.getElementById("stat-total").textContent = total;
+
+  const hoy = new Date().toISOString().slice(0,10);
+  document.getElementById("stat-hoy").textContent = porDia[hoy] || 0;
+
+  const serieEntries = Object.entries(porSerie).sort((a,b)=>b[1]-a[1]);
+  document.getElementById("stat-serie-top").textContent = serieEntries.length ? nombreSerie(serieEntries[0][0]) : "—";
+
+  // últimos 30 días, en orden, incluyendo días sin datos
+  const dias = [];
+  for(let i=29;i>=0;i--){
+    const d = new Date();
+    d.setDate(d.getDate()-i);
+    dias.push(d.toISOString().slice(0,10));
+  }
+  const dataDia = dias.map(d=>porDia[d]||0);
+  const labelsDia = dias.map(d=>d.slice(5)); // MM-DD
+
+  if(chartDia) chartDia.destroy();
+  chartDia = new Chart(document.getElementById("chart-dia"), {
+    type: "bar",
+    data: { labels: labelsDia, datasets: [{ label: "Sobres abiertos", data: dataDia, backgroundColor: "#3FA79B" }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+  });
+
+  if(chartSerie) chartSerie.destroy();
+  const labelsSerie = serieEntries.map(([k])=>nombreSerie(k));
+  const dataSerie = serieEntries.map(([,v])=>v);
+  chartSerie = new Chart(document.getElementById("chart-serie"), {
+    type: "bar",
+    data: { labels: labelsSerie, datasets: [{ label: "Sobres abiertos", data: dataSerie, backgroundColor: "#C4402C" }] },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+  });
+}
+
+document.getElementById("btn-refresh").addEventListener("click", cargar);
+cargar();
+</script>
+</body>
+</html>
